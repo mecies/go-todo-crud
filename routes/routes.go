@@ -22,6 +22,12 @@ func Routes() {
 	router := mux.NewRouter()
 	router.Use(contentTypeApplicationJsonMiddleware)
 
+	if _, exists := os.LookupEnv("RAILWAY_ENVIRONMENT"); !exists {
+		if err := godotenv.Load(); err != nil {
+			log.Fatal("error loading .env file:", err)
+		}
+	}
+
 	router.HandleFunc("/todo", controllers.CreateTodo).Methods("POST")
 	router.HandleFunc("/todo", controllers.GetAllTodos).Methods("GET")
 	router.HandleFunc("/todo/{id}", controllers.UpdateTodo).Methods("PUT")
