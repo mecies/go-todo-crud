@@ -3,7 +3,6 @@ package routes
 import (
 	"go-30/todo/controllers"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -25,7 +24,5 @@ func Routes() {
 	router.HandleFunc("/todo/{id}", controllers.UpdateTodo).Methods("PUT")
 	router.HandleFunc("/todo/{id}", controllers.DeleteTodo).Methods("DELETE")
 
-	irl := os.Getenv("PROJECT_URL")
-
-	http.ListenAndServe(irl, router)
+	http.ListenAndServe(":80", router)
 }
