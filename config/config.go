@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -15,6 +16,12 @@ func ConnectDB() *gorm.DB {
 
 	if errorENV != nil {
 		panic("Failed to load env file")
+	}
+
+	if _, exists := os.LookupEnv("RAILWAY_ENVIRONMENT"); !exists {
+		if err := godotenv.Load(); err != nil {
+			log.Fatal("error loading .env file:", err)
+		}
 	}
 
 	dbUser, dbPass, dbHost, dbName, port := os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_HOST"), os.Getenv("DB_NAME"), os.Getenv("PORT")

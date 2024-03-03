@@ -24,5 +24,5 @@ func Routes() {
 	router.HandleFunc("/todo/{id}", controllers.UpdateTodo).Methods("PUT")
 	router.HandleFunc("/todo/{id}", controllers.DeleteTodo).Methods("DELETE")
 
-	http.ListenAndServe(":80", router)
+	http.ListenAndServe(":8080", router)
 }
