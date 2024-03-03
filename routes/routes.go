@@ -33,14 +33,6 @@ func Routes() {
 	router.HandleFunc("/todo/{id}", controllers.UpdateTodo).Methods("PUT")
 	router.HandleFunc("/todo/{id}", controllers.DeleteTodo).Methods("DELETE")
 
-	// only load the .env file when running locally
-	// check for a RAILWAY_ENVIRONMENT, if not found, code is running locally
-	if _, exists := os.LookupEnv("RAILWAY_ENVIRONMENT"); !exists {
-		if err := godotenv.Load(); err != nil {
-			log.Fatal("error loading .env file:", err)
-		}
-	}
-
 	port := os.Getenv("PORT")
 
 	http.ListenAndServe(":"+port, router)

@@ -12,11 +12,6 @@ import (
 
 // ConnectDB connects go to postgres database
 func ConnectDB() *gorm.DB {
-	errorENV := godotenv.Load()
-
-	if errorENV != nil {
-		panic("Failed to load env file")
-	}
 
 	if _, exists := os.LookupEnv("RAILWAY_ENVIRONMENT"); !exists {
 		if err := godotenv.Load(); err != nil {
